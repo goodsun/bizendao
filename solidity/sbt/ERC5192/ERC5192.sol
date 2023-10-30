@@ -1,8 +1,6 @@
-// SPDX-License-Identifier: GPL-3.0-only
+// SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.13;
-
-import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-
+import "github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.7.3/contracts/token/ERC721/ERC721.sol";
 import {IERC5192} from "./IERC5192.sol";
 
 abstract contract ERC5192 is ERC721, IERC5192 {
