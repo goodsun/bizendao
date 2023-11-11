@@ -82,9 +82,10 @@ contract manage {
 		_public[account] = true;
 	}
 
-	function setCountractType(address account, string memory typename) external {
+	function setCountractInfo(address account, string memory name, string memory typename) external {
 		require(chkAdmin() ,"You can't set contract.");
 		require(chkExist(account) ,"it's not exist.");
+		_names[account] = name;
 		_types[account] = typename;
 	}
 
@@ -102,8 +103,8 @@ contract manage {
 		_public[account] = false;
 	}
 
-	function getContract(address account) external view returns (address, string memory, bool) {
-    	return (account, _names[account], _public[account]);
+	function getContract(address account) external view returns (address, string memory, string memory, bool) {
+    	return (account, _names[account], _types[account], _public[account]);
 	}
 
     function getAllContracts() public view returns (address[] memory, string[] memory, string[] memory, bool[] memory) {
@@ -123,7 +124,7 @@ contract manage {
         return (addresses, names, types, publicStatus);
     }
 
-	function deleteContracts(address account) external {
+	function deleteContract(address account) external {
 		require(chkAdmin(), "You can't delete contract.");
 		require(chkExist(account), "It's not exist.");
 		for (uint256 i = 0; i < _contracts.length; i++) {
