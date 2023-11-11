@@ -82,9 +82,10 @@ contract manage {
 		_public[account] = true;
 	}
 
-	function setCountractType(address account, string memory typename) external {
+	function setCountractInfo(address account, string memory name, string memory typename) external {
 		require(chkAdmin() ,"You can't set contract.");
 		require(chkExist(account) ,"it's not exist.");
+		_names[account] = name;
 		_types[account] = typename;
 	}
 
