@@ -15,18 +15,19 @@ contract manage {
 		_admins.push(msg.sender);
 	}
 
-    function checkUser() external view returns (int16) {
-		for (uint i = 0; i < _admins.length; i++) {
-            if (_admins[i] == msg.sender) {
-				return 1;
-			}
-        }
-		for (uint i = 0; i < _creators.length; i++) {
-            if (_creators[i] == msg.sender) {
-				return 2;
-			}
+function checkUser() external view returns (string memory) {
+    for (uint i = 0; i < _admins.length; i++) {
+        if (_admins[i] == msg.sender) {
+            return "admin";
         }
     }
+    for (uint i = 0; i < _creators.length; i++) {
+        if (_creators[i] == msg.sender) {
+            return "creator";
+        }
+    }
+    return "user";
+}
 
     function chkAdmin() internal view returns (bool) {
 		bool val = false;
