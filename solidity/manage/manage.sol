@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 contract manage {
     address private _owner;
 	address[] private _admins;
+	address[] private _creators;
 	address[] private _contracts;
 	mapping(address => string) private _names;
 	mapping(address => string) private _types;
@@ -13,6 +14,19 @@ contract manage {
 		_owner = msg.sender;
 		_admins.push(msg.sender);
 	}
+
+    function checkUser() external view returns (int16) {
+		for (uint i = 0; i < _admins.length; i++) {
+            if (_admins[i] == msg.sender) {
+				return 1;
+			}
+        }
+		for (uint i = 0; i < _creators.length; i++) {
+            if (_creators[i] == msg.sender) {
+				return 2;
+			}
+        }
+    }
 
     function chkAdmin() internal view returns (bool) {
 		bool val = false;
@@ -67,6 +81,32 @@ contract manage {
 	function getAdmins() public view returns (address[] memory, uint256){
     	return (_admins, _admins.length);
 	}
+
+	function setCreator(address account) external {
+		require(chkAdmin() ,"You can't set creator.");
+		for (uint i = 0; i < _creators.length; i++) {
+            if (_creators[i] == account) {
+				require(false ,"it's exist");
+            }
+        }
+		_creators.push(account);
+	}
+
+	function delcreator(address account) external {
+        require(chkAdmin() ,"You can't delete creator.");
+		for (uint i = 0; i < _creators.length; i++) {
+            if (_creators[i] == account) {
+                _creators[i] = _creators[_creators.length - 1];
+                _creators.pop();
+                return;
+            }
+        }
+	}
+
+	function getcreators() public view returns (address[] memory, uint256){
+    	return (_creators, _creators.length);
+	}
+
 
 	function setContract(address account, string memory name, string memory typename) external {
 		require(chkAdmin() ,"You can't set contract.");
