@@ -93,7 +93,7 @@ function checkUser() external view returns (string memory) {
 		_creators.push(account);
 	}
 
-	function delcreator(address account) external {
+	function delCreator(address account) external {
         require(chkAdmin() ,"You can't delete creator.");
 		for (uint i = 0; i < _creators.length; i++) {
             if (_creators[i] == account) {
@@ -104,7 +104,7 @@ function checkUser() external view returns (string memory) {
         }
 	}
 
-	function getcreators() public view returns (address[] memory, uint256){
+	function getCreators() public view returns (address[] memory, uint256){
     	return (_creators, _creators.length);
 	}
 
